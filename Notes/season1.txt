@@ -1,0 +1,332 @@
+PENDING:- 
+1) DAILY REVISION
+2) MUTATION OBSERVER
+3) AST EXPLORER :- astexplorer.net
+4) MARK AND SWEEP ALGORITHM
+5) INLINING
+6) COPY ELISION
+7) INLINE CACHING
+8) GARBAGE COLLECTOR = named as ORINOCO 
+9) OilPay garbage collector
+
+CHAPTER 1:-
+QUESTION:- How JavaScript works?
+ANSWER:- 
+Everything in JavaScript happens inside an "execution context".
+
+Execution context has two component
+1)memory component[variable environment] 
+-This is the place where all variables and functions are stored as key value pairs. eg-{key: value ||  n:2;} 
+
+2)code component[Thread of execution]
+-This is the place where code is executed one line at a time
+
+Note-
+*JavaScript is a synchronous single-threaded language
+
+-Single threaded means JavaScript can execute once command at a time
+-Synchronous single-threaded that means JavaScript can execute one command at a time in a specific order.
+
+
+
+CHAPTER 2:- 
+QUESTION:- How JavaScript Code is executed? 🔥
+ANSWER:- 
+1. When JavaScript code is executed, Execution Context is created and it is called Global Execution Context.
+2. JavaScript program is executed in TWO PHASES inside Execution Context
+    a. MEMORY ALLOCATION PHASE - JavaScript program goes throughout the program and allocate memory of Variables and Functions declared in program.
+    b. CODE EXECUTION PHASE -  JavaScript program now goes throughout the code line by line and execute the code. 
+3. A Function is invoked when it is called and it acts as another MINI PROGRAM and creates its own Execution Context.
+4. Returns keyword return the Control back to the PREVIOUS Execution-Context where the Function is called and Execution Context of the Function is DELETED.
+5. CALL STACK maintains the ORDER of execution of Execution Contexts. It CREATES Execution Context whenever a Program starts or a Function is invoked and it pops out the Execution Context when a Function or Program ENDS.
+
+
+
+CHAPTER 3:- 
+QUESTION:- Hoisting in JavaScript? 🔥
+ANSWER:- 
+Hoisting as a core concept relies on the way how Execution Context is created. In the first phase i.e. the Memory Allocation Phase all the variables and functions are allocated memory, even before any code is executed. All the variables are assigned undefined at this point in time in the local memory. 
+
+1. In JS, before the code is executed, the variables get initialized to undefined.
+2. Arrow functions enact as variables and get "undefined" during the memory creation phase while functions actually get run.
+3. Hoisting: Mechanism in JS where the variable declarations are moved to the top of the scope before execution. Therefore it is possible to call a function before initializing it.
+4. Whenever a JS program is run, a global execution block is created, which comprises of 2: Memory creation and Code execution.
+5. Variable declarations are scanned and are made undefined
+6. Function declarations are scanned and are made available
+
+
+
+CHAPTER 4:- 
+QUESTION:- How functions work in JavaScript? 🔥
+ANSWER:- 
+Whenever a function is invoked in JavaScript a functional Execution Context is created and memory is allocated. Once the memory is allocated to the variables and functions, then the code is executed synchronously, one line at a time. Let's check all that with examples 
+
+1. We learnt how functions work in JS.
+2. At first a global execution context is created, which consists of Memory and code and has 2 phases: Memory allocation phase and code execution phase.
+3. In the first phase, the variables are assigned "undefined" while functions have their own code.
+4. Whenever there is a function declaration in the code, a separate local execution context gets created having its own phases and is pushed into the call stack.
+5. Once the function ends, the EC is removed from the call stack.
+6. When the program ends, even the global EC is pulled out of the call stack.
+
+
+
+CHAPTER 5:- 
+QUESTION:- Shortest Program in JavaScript?
+ANSWER:- 
+• window object is created by the JS engines of the respective browsers when global execution context is created.
+• whenever an execution context is created a "this" variable is also created.
+• at the global level "this" points to the global object( window object in case of browsers).
+• anything that is not inside a function is the "global space".
+• whenever we create any variables or functions in the "global space", they get attached to the global object( window object in case of browsers).
+
+so to access the variables/function defined in the global space , 
+we can use any of the below:
+    console.log(window.a);
+    console.log(a);
+    console.log(this.a)             //at the global space level, where this points to the window object
+
+
+     
+CHAPTER 6:- 
+QUESTION:- undefined vs not defined in JS 🔥 ?
+ANSWER:-
+Undefined: a variable is 'declared', it has its own placeholder but not having the value of itself 'defined' hence 'undefined' and until the variable has assigned a value, the 'undefined' fills that particular placeholder
+and 'undefined' is itself a datatype
+(really sorry for referencing with c++ concepts)
+
+Not Defined: This case comes in error where js engine neither find that particular variable nor its placeholder
+ and cannot find the variable in 1st phase of context (Memory allocation context)
+
+and yes "flexibly typed language" sound pretty good instead of "weakly typed language"
+
+
+
+CHAPTER 7:- 
+QUESTION:- The Scope Chain, 🔥Scope & Lexical Environment?
+ANSWER:-
+0) Lexical environment = EC's Local Memory + Reference to Lexical Environment of its parent.
+1) Lexical Environment of its parent is the scope where a function is physically present or defined. So, suppose a function x(), is defined and invoked in the GEC, when function x()'s EC is pushed in the call stack, it stores a reference to its parent's lexical environment i.e. the GEC's memory.
+2) Whenever a new Execution Context is pushed in the Call Stack it holds a reference to the Lexical Environment of its parent, i.e. the EC's memory from where it was invoked.
+3) Global execution context holds reference to null.
+4)  Javascript engine first looks for the variable/function being accessed in the local scope of the function, and if not found, it keeps on searching the lexical environment of its parent until it finds the variable/function being accessed.
+5) The mechanism mentioned in point 4 above is called SCOPE CHAIN.
+6) If the variable accessed is not found in the Scope Chain, then you will get the variable is not defined error in the  browser's console.
+
+
+
+CHAPTER 8:- 
+QUESTION:- let & const in JS 🔥Temporal Dead Zone?
+ANSWER:-
+1. let and const are hoisted but its memory is allocated at other place than window which cannot be accessed before initialization.
+2. Temporal Dead Zone exists until variable is declared and assigned a value.
+3. window.variable OR this.variable will not give value of variable defined using let or const.
+4. We cannot redeclare the same variable with let/const(even with using var the second time).
+5. const variable declaration and initialization must be done on the same line.
+6. There are three types of error: [1] referenceError {given where variable does not have memory allocation} [2] typeError {given when we change type that is not supposed to be changed} [3] syntaxError {when proper syntax(way of writing a statement) is not used}.
+7. Use const wherever possible followed by let, Use var as little as possible(only if you have to). It helps avoid error.
+8. Initializing variables at the top is good idea, helps shrinks TDZ to zero.
+
+
+
+CHAPTER 9:- 
+QUESTION:- BLOCK SCOPE & Shadowing in JS 🔥?
+ANSWER:-
+1. Code inside curly bracket is called block.
+2. Multiple statements are grouped inside a block so it can be written where JS expects single statements like in if, else, loop, function etc.
+3. Block values are stored inside separate memory than global. They are stored in block. (the reason let and const are called block scope)
+4. Shadowing of variables using var, let and const.
+5. The shadow should not cross the scope of original otherwise it will give error.
+6. shadowing let with var is illegal shadowing and gives error.
+7. var value is stored in nearest outer function or global scope and hence can be accessed outside block as well whereas same is not the case with let and const.
+
+
+
+CHAPTER 10:- 
+QUESTION:- Closures in JS 🔥?
+ANSWER:-
+1.  Function bundled with its lexical environment is known as a closure. 
+2.  Whenever function is returned, even if its vanished in execution context but still it remembers the reference it was pointing to. Its not just that function alone it returns but the entire closure and that's where it becomes interesting.
+
+
+
+CHAPTER 11:- 
+QUESTION:- setTimeout + Closures Interview Question 🔥?
+ANSWER:-
+1. setTimeout stores the function in a different place i.e (callback queue) and attached a timer to it, when the timer is finished it rejoins the call stack and executed.
+2. Without closure the "var" type gives the reference to the latest value as it does not retain the original value but rather has the reference so any update in value after timeout will be shown.
+3. If we use let/const because they have block scope, every time a new copy of variable is attached, thus this can be done without the help of the closure.
+4. The second point can be correcting using the concept of the Closures.
+
+
+
+CHAPTER 12:- 
+QUESTION:- CRAZY JS INTERVIEW 🤯ft. Closures ?
+ANSWER:-
+1. An inner function can be directly called using two parenthesis ()().
+2. Even parameters can be passed this way (Remember that the function needs to be returned to do this)
+3. Closures can also be used for data hiding and encapsulation. So other code cannot access this value.
+4. Unused variables are automatically deleted in High Level Programming language by garbage collector. Closures allocate a lot of memory which cannot be deleted so this acts as a disadvantage.
+5. Some browsers now have smart garbage collectors that automatically deletes variables that are not used outside closures
+
+ADVANTAGES/ USES OF CLOSURES
+- Module Design Pattern
+- Currying
+- Functions like once
+- memoize
+- maintaining state in async world
+- setTimeouts
+- Iterators
+- data hiding and encapsulation
+
+DISADVANTAGES OF CLOSURES
+- over consumption of the memory
+- those closures are not garbage collected
+- if does not handle correctly cause data leak
+
+
+
+CHAPTER 13:- 
+QUESTION:- First-Class Functions in JavaScript 🔥?
+Functions in JS are first-class Citizens, what does that mean? What is the difference between Function Statements and Function Expressions? What are Anonymous Functions? What are First Class Functions? What is the difference between Function Parameter and Function Arguments?
+ANSWER:-
+
+1.  What is Function Statement ?
+A.  A normal function that we create using Naming convention. & By this we can do the Hoisting.
+      For Ex  -  function xyz(){
+                            console.log("Function Statement");
+                       }
+
+2.  What is Function Expression ?
+A.  When we assign a function into a variable that is Function Expression. & We can not do Hoisting by this because it acts like variable.
+      For Ex - var a = function(){
+                            console.log("Function Expression");
+                    }
+
+3.  What is Anonymous Function ?
+A.  A Function without the name is known as Anonymous Function. & It is used in a place where function are treated as value.
+      For Ex - function(){}
+
+4.  What is Named Function Expression ?
+A.  A function with a na    me is known as Named Function Expression.
+      For Ex - var a = function xyx(){
+                            console.log("Names Function Expression");
+                     }
+
+5.  Difference b/w Parameters and Arguments ?
+A.  When we creating a function  & put some variables in this ( ) that is our Parameters.
+       For Ex - function ab( param1, param2 ){
+                              console.log("")
+                      }
+       & When we call this function & pass a variable in this ( ) that is our Arguments
+       For Ex - ab( args1, args2);
+
+6.  What is First Class Function Or First class citizens?
+A.   The Ability of use function as value,
+*     Can be passed as an Argument,
+*     Can be executed inside a closured function &
+*     Can be taken as return form.
+       For Ex - var b = function(param){
+                             return function xyz(){
+                                     console.log(" F C F ");
+                             }
+                     } 
+
+7. Function are heart of JS. They are called first class citizens or first class functions because they have the ability to be stored in the variables, passed as parameters and arguments. They can also be returned in the function.
+
+
+
+CHAPTER 14:- 
+QUESTION:- Callback Functions in JS ft. Event Listeners 🔥 ?
+ANSWER:-
+1. Function that is passed on as argument to another function is called callback function.
+2. setTimeout helps turn JS which is single-threaded and synchronous into asynchronous.
+3. Event listeners can also invoke closures with scope.
+4. Event listeners consume a lot of memory which can potentially slow down the website therefore it is good practice to remove if it is not used.
+
+
+
+CHAPTER 15:- 
+QUESTION:- Asynchronous JavaScript & EVENT LOOP from scratch 🔥 ?
+ANSWER:-
+1. Browser has superpowers that are lent to JS engine to execute some tasks, these superpowers include web API's such as console, location, DOM API, setTimeout, fetch, local storage.
+2. Callback functions and event handlers are first stored in Web API environment and then transferred to callback queue.
+3. Promises and mutation observer are stored in API environment and then transferred to microTask queue.
+4. Event loop continuously observes call stack and when it is empty it transfers task to call stack.
+5. Micro task is given priority over callback tasks.
+6. Too many micro tasks generated can cause Starvation (nit giving time to callback tasks to execute).
+
+1. When does the event loop actually start? - 
+ANSWER:- Event loop, as the name suggests, is a single-thread, loop that is `almost infinite`. It's always running and doing its job. ❤️
+
+2.  Are only asynchronous web API callbacks are registered in the web API environment? -
+ANSWER:- YES, the synchronous callback functions like what we pass inside map, filter, and reduce aren't registered in the Web API environment. It's just those async callback functions that go through all this.
+
+3. Does the web API environment stores only the callback function and pushes the same callback to queue/microtask queue? -
+ANSWER:- Yes, the callback functions are stored, and a reference is scheduled in the queues. Moreover, in the case of event listeners(for example click handlers), the original callbacks stay in the web API environment forever, that's why it's advised to explicitly remove the listeners when not in use so that the garbage collector does its job.
+
+4. How does it matter if we delay for setTimeout would be 0ms. Then callback will move to queue without any wait? 
+ANSWER:- No, there are trust issues with setTimeout() 😅. The callback function needs to wait until the Call Stack is empty. So the 0 ms callback might have to wait for 100ms also if the stack is busy.
+
+
+
+CHAPTER 16:- 
+QUESTION:- JS Engine EXPOSED 🔥 Google's V8 Architecture 🚀  ?
+ANSWER:-
+1. JS runtime environment contains all elements required to run JS.
+2. It contains JS engine, set of API's, callback queue, microTask queue, event loop.
+3. JS engine is a piece of code.
+4. Process includes Code ---> Parsing ---> Compilation -----> Execution.
+5. Parsing breaks code into tokens and converts it into AST(Abstract Syntax Tree).
+6. Modern JS engine follows JIT compilation, it interprets while it optimizes code as much as it can.
+7. Execution and Compilation are done together.
+8. Execution has Garbage collector and other optimization such as inlining, copy elusion, inline caching etc.
+
+INTERPRETER = named as IGNITION 
+COMPILER = named as TURBO COMPILER
+GARBAGE COLLECTOR = named as ORINOCO 
+
+
+
+SUB_QUESTION 1:- Basic idea about Mark & Sweep Algo?
+ANSWER:-
+It comprise of 2 phases - 
+1. Mark phase
+2. Sweep phase
+
+All objects are marked as 0 initially (at creation) and in mark phase the objects that will be accessible are marked as 1 (reachable) by a DFS graph traversal.
+
+During sweep phase, the objects marked with 0 are removed from heap memory. and also all reachable objects are again initialized with 0 (made unreachable) because the algorithm will run again.
+
+So, it's basically tracing garbage collector concept.
+
+
+
+CHAPTER 17:- 
+QUESTION:- TRUST ISSUES with setTimeout() ?
+ANSWER:-
+1. The setTimeout function stores it in the callback queue which is executed only after call stack is empty, even if setTimeout is set to 0ms. 
+2. setTimeout ensures that minimum it will take the time mentioned because it may be paused due to call stack not empty.
+
+
+
+CHAPTER 18:- 
+QUESTION:- Higher-Order Functions ft. Functional Programming ?
+ANSWER:-
+First-class functions are JavaScript functions that can behave like variables. They can also be passed as arguments to higher-order functions.
+Higher-order functions are functions that return a function or take in a function as an argument.
+
+1. Follow DRY(Don't Repeat Yourself) principle while coding.
+2. Use function to stop writing repeating line of codes.
+3. Function that takes another function as argument(callback function) is known as Higher order functions.
+4. It is this ability that function can be stored, passed and returned,  they are called first class citizens.
+5. If we use Array.property.function-name. This function is accessible to any array in your code
+
+
+
+CHAPTER 19:- 
+QUESTION:- map, filter & reduce ?
+ANSWER:-
+1. map method is used when we want transformation of whole array.
+2. filter is used when we want to filter the array to obtain required value.
+3. reduce is used when we want to reduce the array to single value eg (max, min, avg, sum, difference etc).
+4. reduce passes two arguments one function(which includes accumulator and initial value as argument itself) and another initial value of accumulator.
