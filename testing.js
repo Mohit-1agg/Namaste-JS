@@ -3,16 +3,16 @@
  */
 
 function hoisting () {
-    function x() {
-        let a = 100;
-        
-        function y() {
-            console.log(a);
-        }
-        y();
+  function x () {
+    const a = 100;
+
+    function y () {
+      console.log(a);
     }
-    x();
-};
+    y();
+  }
+  x();
+}
 
 const hoist_variable = 'demo';
 

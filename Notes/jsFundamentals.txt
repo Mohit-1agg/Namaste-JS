@@ -1,0 +1,70 @@
+CHAPTER 1:- 
+QUESTION:- call, apply and bind method in JavaScript?
+ANSWER:-
+
+const person = {
+    fullName: function (homeTown, state) {
+        console.log(this.firstName + ' ' + this.lastName + ' from ' + homeTown + ' ' + state);
+    }
+}
+
+const person1 = {
+    firstName: 'Raju',
+    lastName: 'Rastoagi'
+}
+
+const person2 = {
+    firstName: 'Priyanka',
+    lastName: 'Bansal'
+}
+
+
+
+CALL() :- 
+    1) The call() method is a predefined JavaScript method.
+    2) It can be used to invoke (call) a method with an owner object as an argument (parameter).
+    3) With call(), an object can use a method belonging to another object.
+
+    // SYNTAX
+    person.fullName.call(person1, 'Jalandhar', 'Punjab');
+    person.fullName.call(person2, 'Mandi', 'Himachal Pardesh');
+
+
+
+APPLY() :-
+    1) The apply() method is similar to the call() method (previous Explained).
+    2) 
+        The call() method takes arguments separately.
+        The apply() method takes arguments as an array.
+
+        
+    // SYNTAX
+    person.fullName.apply(person1, ['Jalandhar', 'Punjab']);
+    person.fullName.apply(person2, ['Mandi', 'Himachal Pardesh']);
+
+
+
+BIND() :-
+    1) With the bind() method, an object can borrow a method from another object.
+    2) The example below creates 2 objects (person and member).
+    3) The member object borrows the fullName method from the person object, and create a separate function
+
+    const person = {
+        firstName:"John",
+        lastName: "Doe",
+        fullName: function () {
+            return this.firstName + " " + this.lastName;
+        }
+    }
+
+    const member = {
+        firstName:"Hege",
+        lastName: "Nilsen"
+    }
+
+    let fullName = person.fullName.bind(member);
+    // invoke the new function
+    fullName();
+
+
+
